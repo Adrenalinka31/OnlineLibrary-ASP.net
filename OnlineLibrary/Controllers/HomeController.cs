@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineLibrary.Domain.Entity;
 using OnlineLibrary.Models;
 using System.Diagnostics;
 
@@ -15,13 +16,18 @@ namespace OnlineLibrary.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            Book book = new Book()
+            {
+                Name = "Algoritm bebri", 
+                Description = "jkrdfgbdfkjdrfjnhd",
+                BookYear = "2019"
+                
+                
+            };
+            return View(book);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

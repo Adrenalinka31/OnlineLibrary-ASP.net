@@ -21,9 +21,14 @@ namespace OnlineLibrary.Controllers
             stud.Add(studentViewModel);
             return RedirectToAction(nameof(Index));
         }
-        public String Hello()
+        public IActionResult StudentsBooks()
         {
-            return "Кто здесьь?";
+            return View();
         }
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
     }
 }
