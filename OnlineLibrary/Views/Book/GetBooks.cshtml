@@ -1,0 +1,16 @@
+﻿@model List<OnlineLibrary.Domain.Entity.Book>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+@foreach(var book in Model)
+{
+    <p>@book.Name</p>
+    <p>@book.Description</p>
+    <p>@book.BookYear</p>
+    <p>@book.ISBN</p>
+    <p>@book.Category</p>
+    <p>@book.ImageURL</p>
+}

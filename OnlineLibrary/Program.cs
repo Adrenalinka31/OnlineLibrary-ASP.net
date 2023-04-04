@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using OnlineLibrary.DAL;
+using OnlineLibrary.DAL.Interfaces;
+using OnlineLibrary.DAL.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 var app = builder.Build();
 
