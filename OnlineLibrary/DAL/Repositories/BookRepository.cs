@@ -38,9 +38,16 @@ namespace OnlineLibrary.DAL.Repositories
             return await _db.Book.FirstOrDefaultAsync(x => x.Name == name);
         }
 
-        public Task<List<Book>> Select()
+        public async Task<List<Book>> Select()
         {
-            return _db.Book.ToListAsync();
+            return await _db.Book.ToListAsync();
+        }
+
+        public async Task<Book> Update(Book entity)
+        {
+            _db.Book.Update(entity);
+            await _db.SaveChangesAsync();
+            return entity;
         }
     }
 }

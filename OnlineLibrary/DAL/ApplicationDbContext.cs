@@ -8,7 +8,7 @@ namespace OnlineLibrary.DAL
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            
         }
         public DbSet<Book> Book { get; set; }
 

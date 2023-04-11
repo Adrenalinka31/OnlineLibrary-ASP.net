@@ -7,5 +7,6 @@
 
         Task<List<T>> Select();
         Task<bool> Delete(T entity);
+        Task<T> Update(T entity);
     }
 }
