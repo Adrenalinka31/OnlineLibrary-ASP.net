@@ -5,7 +5,27 @@
     Layout = "_Layout";
 }
 
-<p>@Model.Name</p>
-<p>@Model.Description</p>
-<p>@Model.ISBN</p>
-<p>@Model.BookYear</p>
+<div style="padding: 10px;"></div>
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="@Model?.ImageURL" 
+                 class="img-fluid rounded-start rounded" alt="@Model?.Name">
+        </div>
+        <div class="col-md-4">
+            <div class="card-body">
+                <h5 class="card-title text-center">@Model?.Name</h5>
+                <p class="card-text"><b>Описание: </b>@Model?.Description</p>
+                <p class="card-text"><b>Дата выпуска: </b>@Model?.BookYear ₽</p>
+                <p class="card-text"><b>Категория: </b>@Model?.Category</p>
+                <p class="card-text"><b>ISBN: </b>@Model.ISBN</p>
+                
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-body">
+                <p class="card-text"><b>Описание: </b>@Model?.Description</p>
+            </div>
+        </div>
+    </div>
+</div>

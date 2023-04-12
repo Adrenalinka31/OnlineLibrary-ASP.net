@@ -22,7 +22,7 @@ namespace OnlineLibrary.Controllers
             var response = await _bookService.GetBooks();
             if(response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(response.Data);
+                return View(response.Data.ToList());
             }
             return RedirectToAction("Error");
         }

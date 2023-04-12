@@ -115,6 +115,7 @@ namespace OnlineLibrary.Service.Implementations
                     baseResponse.StatusCode = StatusCode.UserNotFound;
                     return baseResponse;
                 }
+
                 baseResponse.Data = book;
                 return baseResponse;
             }
