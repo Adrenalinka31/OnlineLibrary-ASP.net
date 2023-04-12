@@ -68,7 +68,7 @@ namespace OnlineLibrary.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(BookViewModel model)
+        public async Task<IActionResult> EditBook(BookViewModel model)
         {
             if (ModelState.IsValid)
             {

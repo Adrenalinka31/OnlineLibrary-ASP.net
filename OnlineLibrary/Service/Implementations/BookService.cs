@@ -116,6 +116,7 @@ namespace OnlineLibrary.Service.Implementations
                     return baseResponse;
                 }
 
+                baseResponse.StatusCode = StatusCode.OK;
                 baseResponse.Data = book;
                 return baseResponse;
             }
