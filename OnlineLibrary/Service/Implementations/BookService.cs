@@ -1,4 +1,5 @@
-﻿using OnlineLibrary.DAL.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineLibrary.DAL.Interfaces;
 using OnlineLibrary.Domain.Entity;
 using OnlineLibrary.Domain.Enum;
 using OnlineLibrary.Domain.Response;
@@ -10,14 +11,14 @@ namespace OnlineLibrary.Service.Implementations
     public class BookService : IBookService
     {
 
-        private readonly IBookRepository _bookRepository;
+        private readonly IBaseRepository<Book> _bookRepository;
 
-        public BookService (IBookRepository bookRepository)
+        public BookService (IBaseRepository<Book> bookRepository)
         {
             _bookRepository = bookRepository;
         }
         
-        public async Task<IBaseResponse<BookViewModel>> CreateBook(BookViewModel bookViewModel)
+        public async Task<IBaseResponse<BookViewModel>> CreateBook(BookViewModel bookViewModel, byte[] imageData)
         {
             var baseResponse = new BaseResponse<BookViewModel>();
             try
@@ -108,7 +109,7 @@ namespace OnlineLibrary.Service.Implementations
             var baseResponse = new BaseResponse<Book>();
             try
             {
-                var book = await _bookRepository.Get(id);
+                var book = await _bookRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 if(book == null)
                 {
                     baseResponse.Description = "Книга не найдена";
@@ -134,7 +135,7 @@ namespace OnlineLibrary.Service.Implementations
             var baseResponse = new BaseResponse<Book>();
             try
             {
-                var book = await _bookRepository.GetByName(name);
+                var book = await _bookRepository.GetAll().FirstOrDefaultAsync(x => x.Name == name);
                 if (book == null)
                 {
                     baseResponse.Description = "Книга по названию не найдена";
@@ -158,7 +159,7 @@ namespace OnlineLibrary.Service.Implementations
             var baseResponse = new BaseResponse<IEnumerable<Book>>();
             try
             {
-                var books = await _bookRepository.Select();
+                var books = await _bookRepository.GetAll().ToListAsync();
                 if(books.Count == 0)
                 {
                     baseResponse.Description = "Найдено 0 элементов";

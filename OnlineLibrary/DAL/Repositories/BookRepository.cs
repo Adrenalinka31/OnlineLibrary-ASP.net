@@ -4,7 +4,7 @@ using OnlineLibrary.Domain.Entity;
 
 namespace OnlineLibrary.DAL.Repositories
 {
-    public class BookRepository : IBookRepository
+    public class BookRepository : IBaseRepository<Book>
     {
         private readonly ApplicationDbContext _db;
 
@@ -38,9 +38,9 @@ namespace OnlineLibrary.DAL.Repositories
             return await _db.Book.FirstOrDefaultAsync(x => x.Name == name);
         }
 
-        public async Task<List<Book>> Select()
+        public IQueryable<Book> GetAll()
         {
-            return await _db.Book.ToListAsync();
+            return _db.Book;
         }
 
         public async Task<Book> Update(Book entity)

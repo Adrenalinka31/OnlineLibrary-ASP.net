@@ -10,7 +10,7 @@ namespace OnlineLibrary.Service.Interfaces
         Task<IBaseResponse<Book>> GetBookById(int id);
         Task<IBaseResponse<Book>> GetBookByName(string name);
         Task<IBaseResponse<bool>> DeleteBook(int id);
-        Task<IBaseResponse<BookViewModel>> CreateBook(BookViewModel bookViewModel);
+        Task<IBaseResponse<BookViewModel>> CreateBook(BookViewModel bookViewModel, byte[] imageData);
         Task<IBaseResponse<Book>> Edit(int id, BookViewModel model);
     }
 }

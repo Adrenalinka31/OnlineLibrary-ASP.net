@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlineLibrary.DAL;
 using OnlineLibrary.DAL.Interfaces;
 using OnlineLibrary.DAL.Repositories;
+using OnlineLibrary.Domain.Entity;
 using OnlineLibrary.Service.Implementations;
 using OnlineLibrary.Service.Interfaces;
 
@@ -11,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
-builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBaseRepository<Book>, BookRepository>();
 builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();

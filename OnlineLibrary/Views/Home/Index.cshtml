@@ -1,10 +1,144 @@
-﻿
-@{
-    ViewData["Title"] = "Home Page";
+﻿@{
+    ViewData["Title"] = "Главная";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Добро пожаловать в онлайн библиотеку Учебного учереждения</h1>
-    <p>Здесь можно найти множество различных материалов и книг для обучения</p>
-    
+<div style="padding: 10px;"></div>
+@if (!User.Identity.IsAuthenticated)
+{
+  <div class="card col-md-12">
+  <div class="card-body">
+    <h5 class="card-title text-center">Добро пожаловать на сайт Онлайн Библиотеки</h5>
+    <p class="card-text">
+      На этом сайте вы сможете выбрать необходимый материал для обучения, посмотреть полезную литературу по направленности и изучить подробнее
+    </p>
+    <p class="card-text"><small class="text-muted">АйтишныйДомосед</small></p>
+  </div>
 </div>
+<div style="padding: 10px;"></div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  @if (User.IsInRole("Admin"))
+  {
+    
+  }
+  <div class="col">
+      <div class="card h-100">
+        <img src="https://ucare.timepad.ru/1cc193c4-3865-4404-9429-d511bf76f489/poster_event_2177799.jpg" class="card-img-top card-image"/>
+        <div class="card-body text-center">
+          <h5 class="card-title">Программирование</h5>
+          <p class="card-text">Программирование — Это занимательный процесс, который позволяет разработать множество информационных систем, для облегченя жизни людей</p>
+        </div>
+        <div class="card-footer text-center">
+          <a asp-controller="Book" asp-action="GetBooks" class="card-link">Список книг</a>
+        </div>
+      </div>
+    </div> 
+  <div class="col">
+    <div class="card h-100">
+      <img src="https://ucare.timepad.ru/1cc193c4-3865-4404-9429-d511bf76f489/poster_event_2177799.jpg" class="card-img-top card-image"/>
+      <div class="card-body text-center">
+        <h5 class="card-title">Проектрование</h5>
+        <p class="card-text">
+          Проектирование - Это создание прототипов систем, которые позволяют отобразить систему
+        </p>
+      </div>
+      <div class="card-footer text-center">
+        <a asp-controller="Book" asp-action="GetBooks" class="card-link">Список Книг</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="padding: 10px;"></div>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Основные категории</h5>
+    <p class="card-text">
+     Есть множество материалов для изучения, которые могут помочь студентам освоиться в новых направлениях и изучить множество новых вещей, которые будут полезны в жизни и в работе
+    </p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+
+<div style="padding: 10px;"></div>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Наибольшее популярный материал можно найти по разным предметным областям</h5>
+  </div>
+  <ul class="list-group list-group-flush" id="ulListId">
+    <li class="list-group-item">Программирование — самый распространенный вариант</li>
+    <li class="list-group-item">Проектирование — интересный материал для аналитиков и проектировщиков</li>
+    <li class="list-group-item">Математика — сложный материал, по высшей математике, дискретной математике, геометрии и так далее</li>
+    <li class="list-group-item">Литература - материал, для изучения творчества русских авторов</li>
+  </ul>
+  <div class="card-body">
+    <button class="btn btn-danger" id="btnHideId">Скрыть</button>
+    <button class="btn btn-primary" id="btnShowId">Показать</button>
+  </div>
+  </div>
+}
+else
+{
+  <div class="card">
+    <div class="card-header">
+      Вы не авторизовались
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>Для просмотра контента вы должны авторизоваться</p>
+      </blockquote>
+    </div>
+  </div>
+  
+  <div style="padding: 10px;"></div>
+  
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100">
+        <img src="~/img/Bmw_I8.jpg" class="card-img-top" alt="BMW i8">
+        <div class="card-body">
+          <h5 class="card-title text-center">Недоступно</h5>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">BMW i8</small>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img src="~/img/Mustang.jpg" class="card-img-top" alt="Mustang">
+        <div class="card-body">
+          <h5 class="card-title text-center">Недоступно</h5>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Mustang</small>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img src="~/img/Bmw.jpg" class="card-img-top" alt="BMW">
+        <div class="card-body">
+          <h5 class="card-title text-center">Недоступно</h5>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">BMW</small>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@section Scripts
+{
+    <script>
+    
+    $('#btnHideId').click(function(){
+      $('#ulListId').hide(2000);
+    });
+    
+    $('#btnShowId').click(function () {
+      $('#ulListId').show(2000);
+    });
+  </script>
+}
