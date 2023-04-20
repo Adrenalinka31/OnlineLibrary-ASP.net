@@ -71,7 +71,7 @@ else
                         <img src="@book.ImageURL" class="card-img-top" alt="@book.Name">
                         <div class="card-body">
                             <h5 class="card-title">@book.Name</h5>
-                            <p class="card-text">@book.Description</p>
+                            
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Год: @book.BookYear</li>
@@ -103,7 +103,7 @@ else
         const showCardElement = $('#showCardsId');
         const cardElement = $('.card');
         
-        const interval = 100;
+        const interval = 2000;
         
         hideCardElement.click(function(){
             hideCardElement.hide(interval);

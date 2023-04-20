@@ -11,6 +11,7 @@ namespace OnlineLibrary.Domain.Entity
         public TypeBook Category { get; set; }
         public string ImageURL { get; set; }
         public string BookYear { get; set; }
+        public byte[]? Avatar { get; set; }
 
     }
 

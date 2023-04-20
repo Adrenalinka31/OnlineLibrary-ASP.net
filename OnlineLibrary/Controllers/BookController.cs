@@ -52,7 +52,7 @@ namespace OnlineLibrary.Controllers
         }
         // для редактирования и сохранения объектов
         [HttpGet]
-        [Authorize(Roles ="Admin")]
+        /*[Authorize(Roles ="Admin")]*/
         public async Task<IActionResult> Save(int id)
         {
             if(id == 0)
@@ -68,13 +68,19 @@ namespace OnlineLibrary.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditBook(BookViewModel model)
+        public async Task<IActionResult> Save(BookViewModel model)
         {
+            ModelState.Remove("DataCreate");
             if (ModelState.IsValid)
             {
                 if(model.Id == 0)
                 {
-                    await _bookService.CreateBook(model);
+                    byte[] imageData;
+                    using(var binaryReade = new BinaryReader(model.Avatar.OpenReadStream()))
+                    {
+                        imageData = binaryReade.ReadBytes((int)model.Avatar.Length);
+                    }
+                    await _bookService.CreateBook(model,imageData);
                 }
                 else
                 {

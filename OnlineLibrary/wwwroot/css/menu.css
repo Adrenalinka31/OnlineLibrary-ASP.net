@@ -22,8 +22,8 @@
         }
 
         .navbar .dropdown-menu {
-            width: 10%;
-            left: 9em;
+            width: 100%;
+            left: 0;
             right: 0;
             top: 45px;
             display: block;
