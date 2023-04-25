@@ -17,7 +17,7 @@ namespace OnlineLibrary.Service.Implementations
         {
             _bookRepository = bookRepository;
         }
-        
+        //сервисы для использования в контроллерах
         public async Task<IBaseResponse<Book>> CreateBook(BookViewModel model, byte[] imageData)
         {          
             try
