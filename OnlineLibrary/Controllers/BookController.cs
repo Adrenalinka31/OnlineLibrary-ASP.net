@@ -17,9 +17,9 @@ namespace OnlineLibrary.Controllers
         }
         //for all users
         [HttpGet]
-        public async Task<IActionResult> GetBooks()
+        public IActionResult GetBooks()
         {
-            var response = await _bookService.GetBooks();
+            var response = _bookService.GetBooks();
             if(response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data.ToList());

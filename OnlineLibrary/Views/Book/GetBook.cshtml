@@ -1,4 +1,4 @@
-﻿@model OnlineLibrary.Domain.Entity.Book
+﻿@model OnlineLibrary.Domain.ViewModels.Book.BookViewModel
 
 @{
     ViewBag.Title = "title";
@@ -14,10 +14,10 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title text-center">@Model?.Name</h5>
-                <p class="card-text"><b>Описание: </b>@Model?.Description</p>
-                <p class="card-text"><b>Дата выпуска: </b>@Model?.BookYear ₽</p>
-                <p class="card-text"><b>Категория: </b>@Model?.Category</p>
+                <h5 class="card-title text-center">@Model.Name</h5>
+                <p class="card-text"><b>Описание: </b>@Model.Description</p>
+                <p class="card-text"><b>Дата выпуска: </b>@Model.BookYear ₽</p>
+                <p class="card-text"><b>Категория: </b>@Model.TypeBook</p>
                 <p class="card-text"><b>ISBN: </b>@Model.ISBN</p>
                 
             </div>

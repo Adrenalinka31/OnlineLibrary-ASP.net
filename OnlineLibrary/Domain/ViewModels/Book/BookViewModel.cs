@@ -20,16 +20,20 @@ namespace OnlineLibrary.Domain.ViewModels.Book
         [MinLength(50, ErrorMessage = "Минимальная длина должна быть больше 50 символов")]
         public string Description { get; set; }
 
-        [Display(Name = "Категория")]
-        [Required(ErrorMessage = "Выберите категорию")]
-        public string Category { get; set; }
-
-        public string ImageURL { get; set; }
-
         [Display(Name = "Год выпуска")]
         [Required(ErrorMessage = "Укажите год")]
         [MinLength(2, ErrorMessage = "Минимальная длина должна быть больше двух символов")]
         public string BookYear { get; set; }
+
+        [Display(Name = "Тип книги")]
+        [Required(ErrorMessage = "Выберите тип")]
+        public string TypeBook { get; set; }
+
+        public string ImageURL { get; set; }
+
         public IFormFile Avatar { get; set; }
+
+        public byte[]? Image { get;set; }
+
     }
 }

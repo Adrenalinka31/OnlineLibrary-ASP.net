@@ -18,46 +18,58 @@ namespace OnlineLibrary.Service.Implementations
             _bookRepository = bookRepository;
         }
         
-        public async Task<IBaseResponse<BookViewModel>> CreateBook(BookViewModel bookViewModel, byte[] imageData)
-        {
-            var baseResponse = new BaseResponse<BookViewModel>();
+        public async Task<IBaseResponse<Book>> CreateBook(BookViewModel model, byte[] imageData)
+        {          
             try
             {
                 var book = new Book()
                 {
-                    Name = bookViewModel.Name,
-                    ISBN = bookViewModel.ISBN,
-                    Description = bookViewModel.Description,
-                    Category = (TypeBook)Convert.ToInt32(bookViewModel.Category),
-                    ImageURL = bookViewModel.ImageURL,
-                    BookYear = bookViewModel.BookYear
+                    Name = model.Name,
+                    ISBN = model.ISBN,
+                    Description = model.Description,
+                    Category = (TypeBook)Convert.ToInt32(model.TypeBook),
+                    ImageURL = model.ImageURL,
+                    BookYear = model.BookYear
                 };
                 await _bookRepository.Create(book);
+
+                return new BaseResponse<Book>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = book
+                };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<BookViewModel>()
+                return new BaseResponse<Book>()
                 {
-                    Description = $"[CreateBook] : {ex.Message}",
+                    Description = $"[Create] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
-            return baseResponse;
+            
         }
         public async Task<IBaseResponse<bool>> DeleteBook(int id)
         {
-            var baseResponse = new BaseResponse<bool>();
             try
             {
-                var book = await _bookRepository.Get(id);
+                var book = await _bookRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 if (book == null)
                 {
-                    baseResponse.Description = "Книга не найдена";
-                    baseResponse.StatusCode = StatusCode.UserNotFound;
-                    return baseResponse;
+                    return new BaseResponse<bool>()
+                    {
+                        Description = "User not found",
+                        StatusCode = StatusCode.UserNotFound,
+                        Data = false
+                    };
                 }
                 await _bookRepository.Delete(book);
-                return baseResponse;
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    StatusCode = StatusCode.OK
+                };
             }
             catch (Exception ex)
             {
@@ -71,28 +83,31 @@ namespace OnlineLibrary.Service.Implementations
 
         public async Task<IBaseResponse<Book>> Edit(int id, BookViewModel model)
         {
-            var baseResponse = new BaseResponse<Book>();
             try
             {
-                var book = await _bookRepository.Get(id);
+                var book = await _bookRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 if(book == null)
                 {
-                    baseResponse.StatusCode= StatusCode.BookNotFound;
-                    baseResponse.Description = "Книга не найдена";
-                    return baseResponse;
+                    return new BaseResponse<Book>()
+                    {
+                        Description = "Car not found",
+                        StatusCode = StatusCode.BookNotFound
+                    };
                 }
-
                 book.Name = model.Name;
                 book.Description = model.Description;
                 book.ISBN = model.ISBN;
                 book.ImageURL = model.ImageURL;
                 book.BookYear = model.BookYear;
-                //book.Category = model.Category;
+                book.Category = (TypeBook)Convert.ToInt32(model.TypeBook);
+
                 await _bookRepository.Update(book);
 
-                return baseResponse;
-
-
+                return new BaseResponse<Book>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = book
+                };
             }
             catch (Exception ex)
             {
@@ -104,75 +119,69 @@ namespace OnlineLibrary.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<Book>> GetBookById(int id)
-        {
-            var baseResponse = new BaseResponse<Book>();
+        public async Task<IBaseResponse<BookViewModel>> GetBookById(int id)
+        {            
             try
             {
                 var book = await _bookRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
                 if(book == null)
                 {
-                    baseResponse.Description = "Книга не найдена";
-                    baseResponse.StatusCode = StatusCode.UserNotFound;
-                    return baseResponse;
+                    return new BaseResponse<BookViewModel>()
+                    {
+                        Description = "Книга не найдена",
+                        StatusCode = StatusCode.UserNotFound
+                    };
                 }
-
-                baseResponse.StatusCode = StatusCode.OK;
-                baseResponse.Data = book;
-                return baseResponse;
-            }
-            catch(Exception ex)
-            {
-                return new BaseResponse<Book>()
+                var data = new BookViewModel()
                 {
-                    Description = $"[GetBookById] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    Name = book.Name,
+                    Description = book.Description,
+                    BookYear = book.BookYear,
+                    TypeBook = book.Category.GetDisplayName(),
+                    ISBN = book.ISBN,
+                    ImageURL = book.ImageURL,
+                    Image = book.Avatar,
                 };
-            }
-        }
-        public async Task<IBaseResponse<Book>> GetBookByName(string name)
-        {
-            var baseResponse = new BaseResponse<Book>();
-            try
-            {
-                var book = await _bookRepository.GetAll().FirstOrDefaultAsync(x => x.Name == name);
-                if (book == null)
+
+                return new BaseResponse<BookViewModel>()
                 {
-                    baseResponse.Description = "Книга по названию не найдена";
-                    baseResponse.StatusCode = StatusCode.UserNotFound;
-                    return baseResponse;
-                }
-                baseResponse.Data = book;
-                return baseResponse;
+                    StatusCode = StatusCode.OK,
+                    Data = data
+                };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<Book>()
+                return new BaseResponse<BookViewModel>()
                 {
-                    Description = $"[GetBookByName] : {ex.Message}",
+                    Description = $"[GetBook] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
+
         }
-        public async Task<IBaseResponse<IEnumerable<Book>>> GetBooks()
+        
+        public IBaseResponse<List<Book>> GetBooks()
         {
-            var baseResponse = new BaseResponse<IEnumerable<Book>>();
             try
             {
-                var books = await _bookRepository.GetAll().ToListAsync();
-                if(books.Count == 0)
+                var books = _bookRepository.GetAll().ToList();
+                if(!books.Any())
                 {
-                    baseResponse.Description = "Найдено 0 элементов";
-                    baseResponse.StatusCode = StatusCode.OK;
-                    return baseResponse;
+                    return new BaseResponse<List<Book>>()
+                    {
+                        Description = "Найдено 0 элементов",
+                        StatusCode = StatusCode.BookNotFound
+                    };
                 }
-                baseResponse.Data = books;
-                baseResponse.StatusCode = StatusCode.OK;
-                return baseResponse;
+                return new BaseResponse<List<Book>>()
+                {
+                    Data = books,
+                    StatusCode = StatusCode.OK
+                };
             }
             catch(Exception ex)
             {
-                return new BaseResponse<IEnumerable<Book>>()
+                return new BaseResponse<List<Book>>()
                 {
                     Description = $"[GetBooks] : {ex.Message}",
                      StatusCode = StatusCode.InternalServerError
