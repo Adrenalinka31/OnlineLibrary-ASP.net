@@ -12,37 +12,23 @@ namespace OnlineLibrary.DAL.Repositories
         {
             _db = db;
         }
-
-        public async Task<bool> Create(Book entity)
+        public async Task Create(Book entity)
         {
              await _db.Book.AddAsync(entity);
             await _db.SaveChangesAsync();
 
-            return true;
+           
         }
-
-        public async Task<bool> Delete(Book entity)
+        public async Task Delete(Book entity)
         {
             _db.Book.Remove(entity);
             _db.SaveChanges();
-            return true;
+            
         }
-
-        public async Task<Book> Get(int id)
-        {
-           return await _db.Book.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<Book> GetByName(string name)
-        {
-            return await _db.Book.FirstOrDefaultAsync(x => x.Name == name);
-        }
-
         public IQueryable<Book> GetAll()
         {
             return _db.Book;
         }
-
         public async Task<Book> Update(Book entity)
         {
             _db.Book.Update(entity);
