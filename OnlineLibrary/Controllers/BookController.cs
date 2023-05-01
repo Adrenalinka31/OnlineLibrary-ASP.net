@@ -89,5 +89,11 @@ namespace OnlineLibrary.Controllers
             }
             return RedirectToAction("GetBook");
         }
+        [HttpPost]
+        public JsonResult GetTypes()
+        {
+            var types = _bookService.GetTypes();
+            return Json(types.Data);
+        }
     }
 }

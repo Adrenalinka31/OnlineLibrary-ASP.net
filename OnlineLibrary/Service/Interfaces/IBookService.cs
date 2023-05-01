@@ -11,5 +11,6 @@ namespace OnlineLibrary.Service.Interfaces
         Task<IBaseResponse<bool>> DeleteBook(int id);
         Task<IBaseResponse<Book>> CreateBook(BookViewModel model, byte[] imageData);
         Task<IBaseResponse<Book>> Edit(int id, BookViewModel model);
+        BaseResponse<Dictionary<int, string>> GetTypes();
     }
 }

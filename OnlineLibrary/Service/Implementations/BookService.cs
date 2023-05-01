@@ -189,5 +189,28 @@ namespace OnlineLibrary.Service.Implementations
             }
         }
 
+        public BaseResponse<Dictionary<int, string>> GetTypes()
+        {
+            try
+            {
+                var types = ((TypeBook[])
+                    Enum.GetValues(typeof(TypeBook)))
+                    .ToDictionary(k => (int)k, t => t.GetDisplayName());
+                return new BaseResponse<Dictionary<int, string>>()
+                {
+                    Data = types,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch(Exception ex)
+            {
+                return new BaseResponse<Dictionary<int, string>>()
+                {
+                    Description = ex.Message,
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
     }
 }
