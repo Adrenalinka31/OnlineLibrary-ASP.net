@@ -30,10 +30,10 @@
                                 <div class="form-group">
                                     <input autocomplete="new-password" asp-for="PasswordConfirm" placeholder="Подтвердите пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
                                 </div>
-                                <div>
-                                    <h2 class="paragraphHome text-center"><a asp-controller="Account" target="_blank" asp-action="Login" style="color:deepskyblue;">Вход</a></h2>
+                                <div class="d-grid gap-2 d-md-block float-right">
+                                    <button class="btn btn-success btn-lg float-right" type="submit">Отправить</button>
+                                    <a asp-controller="Account" asp-action="Login" class="btn btn-primary" type="button">Вход</a>
                                 </div>
-                                <button class="btn btn-success btn-lg float-right" type="submit">Отправить</button>
                             </form>
                         </div>
                     </div>
