@@ -3,7 +3,7 @@
 }
 
 <div style="padding: 10px;"></div>
-@if (!User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated)
 {
   <div class="card col-md-12">
   <div class="card-body">
@@ -11,7 +11,7 @@
     <p class="card-text">
       На этом сайте вы сможете выбрать необходимый материал для обучения, посмотреть полезную литературу по направленности и изучить подробнее
     </p>
-    <p class="card-text"><small class="text-muted">АйтишныйДомосед</small></p>
+    <p class="card-text"><small class="text-muted">Онлайн Библиотека</small></p>
   </div>
 </div>
 <div style="padding: 10px;"></div>
@@ -95,34 +95,34 @@ else
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col">
       <div class="card h-100">
-        <img src="~/img/Bmw_I8.jpg" class="card-img-top" alt="BMW i8">
+        <img src="~/img/Книга.jpg" class="card-img-top" alt="Книга">
         <div class="card-body">
           <h5 class="card-title text-center">Недоступно</h5>
         </div>
         <div class="card-footer">
-          <small class="text-muted">BMW i8</small>
+          <small class="text-muted">Книга</small>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card h-100">
-        <img src="~/img/Mustang.jpg" class="card-img-top" alt="Mustang">
+        <img src="~/img/Книга.jpg" class="card-img-top" alt="Книга">
         <div class="card-body">
           <h5 class="card-title text-center">Недоступно</h5>
         </div>
         <div class="card-footer">
-          <small class="text-muted">Mustang</small>
+          <small class="text-muted">Книга</small>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card h-100">
-        <img src="~/img/Bmw.jpg" class="card-img-top" alt="BMW">
+        <img src="~/img/Книга.jpg" class="card-img-top" alt="Книга">
         <div class="card-body">
           <h5 class="card-title text-center">Недоступно</h5>
         </div>
         <div class="card-footer">
-          <small class="text-muted">BMW</small>
+          <small class="text-muted">Книга</small>
         </div>
       </div>
     </div>
