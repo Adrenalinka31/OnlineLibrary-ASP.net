@@ -131,7 +131,7 @@ namespace OnlineLibrary.Service.Implementations
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, users.Role.ToString())
             };
             return new ClaimsIdentity(claims, "ApplicationCookie",
-                ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);//авторизация в проекте(метка)
         }
     }
 }
